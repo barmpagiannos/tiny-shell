@@ -1,5 +1,3 @@
-Έχω αυτό το README.md
-
 TinyShell Project: A Minimal Unix Shell Implementation
 
 A project I completed as part of the Operating Systems course during the 9th semester of my studies.
@@ -164,5 +162,3 @@ Signal Safety: SIGCHLD is blocked during critical sections (like adding jobs to 
 Memory Management: The shell uses static arrays for job lists (MAX_JOBS=16) for simplicity and reliability.
 
 © 2025 Vasilis Barmpagiannos. Academic Project for Operating Systems Course.
-
-Θέλω να το κάνεις πιο όμορφο σαν αυτό στη φωτογραφία.
