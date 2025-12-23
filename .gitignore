@@ -1,0 +1,13 @@
+# Doxygen outputs
+html/
+latex/
+latex.zip
+
+# binaries / build
+tinyshell_final
+*.o
+*.out
+*.exe
+
+# logs
+out.txt
