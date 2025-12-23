@@ -1,0 +1,309 @@
+\doxysection{tinyshell\+\_\+final.\+c File Reference}
+\hypertarget{tinyshell__final_8c}{}\label{tinyshell__final_8c}\index{tinyshell\_final.c@{tinyshell\_final.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_a369266c24eacffb87046522897a570d5}{\+\_\+\+GNU\+\_\+\+SOURCE}}
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_a842ed03f27719bc87666bfd1f75415b8}{MAX\+\_\+\+LINE}}~1024
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\+\_\+\+ARGS}}~64
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_ab392eccba9f043ae0be432eceaf65be4}{MAX\+\_\+\+JOBS}}~16
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_a4b2b20c68bee625b7dc737c4d05699fd}{MAX\+\_\+\+COMMANDS}}~16
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_abde25a67f4046530ae1c572cefeb5869}{UNDEF}}~0
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_a655abe67377341e58ea6c73ad86204db}{FG}}~1
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_ab05cfd0a3a5e9ed76d38482e2cd26f9f}{BG}}~2
+\item 
+\#define \mbox{\hyperlink{tinyshell__final_8c_ab52cdc475a6866d1be7b5807fb623f50}{ST}}~3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a96b59c995e4cc9767e3a0026fb8fee30}{eval}} (char \texorpdfstring{$\ast$}{*}cmdline)
+\begin{DoxyCompactList}\small\item\em Main evaluation entry point. Checks for \& and calls pipeline logic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a69a467ae9f5853ac1dcdf550cc0ae97e}{process\+\_\+pipeline}} (char \texorpdfstring{$\ast$}{*}cmdline, int bg)
+\begin{DoxyCompactList}\small\item\em Parses pipes and executes the chain. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a7cadbc310ebcae23f2a6e12ad9476a40}{parse\+\_\+and\+\_\+execute\+\_\+stage}} (char \texorpdfstring{$\ast$}{*}cmd\+\_\+segment, int in\+\_\+fd, int out\+\_\+fd, pid\+\_\+t pgid)
+\begin{DoxyCompactList}\small\item\em Parses individual command and executes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tinyshell__final_8c_ac8f4665dc58ca5a6f9fea710e85eedbd}{handle\+\_\+redirections}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}args, int \texorpdfstring{$\ast$}{*}in\+\_\+fd, int \texorpdfstring{$\ast$}{*}out\+\_\+fd)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a2f4a39ef4143299db259c28f45782517}{do\+\_\+bgfg}} (char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a6d41e68c6d9855500b96b1f467d8fcd5}{waitfg}} (pid\+\_\+t pid)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a7ec144a9a628442e52b80210bc8364ad}{sigchld\+\_\+handler}} (int sig)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a258e3b580e688a0cf46e4258525aeaf1}{sigint\+\_\+handler}} (int sig)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a809b7c47b9e4abc05325a4b3d33f59a5}{sigtstp\+\_\+handler}} (int sig)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a0b2b78588087ca2bfb21a4a5b85f9c0b}{clearjob}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}job)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_a682ea5e9b0f140547d61862ba71a5552}{initjobs}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}})
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_a0b905260005f933ab734ffd3cb55d219}{addjob}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}}, pid\+\_\+t pid, int state, char \texorpdfstring{$\ast$}{*}cmdline)
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_a98fe9d2f3c3e45a6f2cdcbd3d95b1f48}{deletejob}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}}, pid\+\_\+t pid)
+\item 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tinyshell__final_8c_ad0ab3d39d6885c63357e44dae8b3efa1}{getjobpid}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}}, pid\+\_\+t pid)
+\item 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tinyshell__final_8c_a1317e2d7d88a2d396b5afa238923e7fc}{getjobjid}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}}, int jid)
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_afc2a455d18f02dc9e6fadef8178dfe3f}{pid2jid}} (pid\+\_\+t pid)
+\item 
+void \mbox{\hyperlink{tinyshell__final_8c_acdff86c02cd63e119e3988f9b15f5eab}{listjobs}} (struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}})
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \mbox{\hyperlink{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}{jobs}} \mbox{[}\mbox{\hyperlink{tinyshell__final_8c_ab392eccba9f043ae0be432eceaf65be4}{MAX\+\_\+\+JOBS}}\mbox{]}
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_ad1163b03641d66a0844e796b9356827a}{next\+\_\+jid}} = 1
+\item 
+pid\+\_\+t \mbox{\hyperlink{tinyshell__final_8c_afdad9ad3f210967275dfd51e61237173}{shell\+\_\+pgid}}
+\item 
+struct termios \mbox{\hyperlink{tinyshell__final_8c_a2dc441c45b3015ec6ab79d5abb838dfc}{shell\+\_\+tmodes}}
+\item 
+int \mbox{\hyperlink{tinyshell__final_8c_a4c41dc73f1e5154a8f75e1eba36fe46e}{shell\+\_\+terminal}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{tinyshell__final_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tinyshell__final_8c_a369266c24eacffb87046522897a570d5}\index{tinyshell\_final.c@{tinyshell\_final.c}!\_GNU\_SOURCE@{\_GNU\_SOURCE}}
+\index{\_GNU\_SOURCE@{\_GNU\_SOURCE}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{\_GNU\_SOURCE}{\_GNU\_SOURCE}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a369266c24eacffb87046522897a570d5} 
+\#define \+\_\+\+GNU\+\_\+\+SOURCE}
+
+\Hypertarget{tinyshell__final_8c_ab05cfd0a3a5e9ed76d38482e2cd26f9f}\index{tinyshell\_final.c@{tinyshell\_final.c}!BG@{BG}}
+\index{BG@{BG}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{BG}{BG}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ab05cfd0a3a5e9ed76d38482e2cd26f9f} 
+\#define BG~2}
+
+\Hypertarget{tinyshell__final_8c_a655abe67377341e58ea6c73ad86204db}\index{tinyshell\_final.c@{tinyshell\_final.c}!FG@{FG}}
+\index{FG@{FG}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{FG}{FG}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a655abe67377341e58ea6c73ad86204db} 
+\#define FG~1}
+
+\Hypertarget{tinyshell__final_8c_a29b7451465deac204c5f7cb1f9c6e1fc}\index{tinyshell\_final.c@{tinyshell\_final.c}!MAX\_ARGS@{MAX\_ARGS}}
+\index{MAX\_ARGS@{MAX\_ARGS}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_ARGS}{MAX\_ARGS}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a29b7451465deac204c5f7cb1f9c6e1fc} 
+\#define MAX\+\_\+\+ARGS~64}
+
+\Hypertarget{tinyshell__final_8c_a4b2b20c68bee625b7dc737c4d05699fd}\index{tinyshell\_final.c@{tinyshell\_final.c}!MAX\_COMMANDS@{MAX\_COMMANDS}}
+\index{MAX\_COMMANDS@{MAX\_COMMANDS}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_COMMANDS}{MAX\_COMMANDS}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a4b2b20c68bee625b7dc737c4d05699fd} 
+\#define MAX\+\_\+\+COMMANDS~16}
+
+\Hypertarget{tinyshell__final_8c_ab392eccba9f043ae0be432eceaf65be4}\index{tinyshell\_final.c@{tinyshell\_final.c}!MAX\_JOBS@{MAX\_JOBS}}
+\index{MAX\_JOBS@{MAX\_JOBS}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_JOBS}{MAX\_JOBS}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ab392eccba9f043ae0be432eceaf65be4} 
+\#define MAX\+\_\+\+JOBS~16}
+
+\Hypertarget{tinyshell__final_8c_a842ed03f27719bc87666bfd1f75415b8}\index{tinyshell\_final.c@{tinyshell\_final.c}!MAX\_LINE@{MAX\_LINE}}
+\index{MAX\_LINE@{MAX\_LINE}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_LINE}{MAX\_LINE}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a842ed03f27719bc87666bfd1f75415b8} 
+\#define MAX\+\_\+\+LINE~1024}
+
+\Hypertarget{tinyshell__final_8c_ab52cdc475a6866d1be7b5807fb623f50}\index{tinyshell\_final.c@{tinyshell\_final.c}!ST@{ST}}
+\index{ST@{ST}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{ST}{ST}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ab52cdc475a6866d1be7b5807fb623f50} 
+\#define ST~3}
+
+\Hypertarget{tinyshell__final_8c_abde25a67f4046530ae1c572cefeb5869}\index{tinyshell\_final.c@{tinyshell\_final.c}!UNDEF@{UNDEF}}
+\index{UNDEF@{UNDEF}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{UNDEF}{UNDEF}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_abde25a67f4046530ae1c572cefeb5869} 
+\#define UNDEF~0}
+
+
+
+\label{doc-func-members}
+\Hypertarget{tinyshell__final_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tinyshell__final_8c_a0b905260005f933ab734ffd3cb55d219}\index{tinyshell\_final.c@{tinyshell\_final.c}!addjob@{addjob}}
+\index{addjob@{addjob}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{addjob()}{addjob()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a0b905260005f933ab734ffd3cb55d219} 
+int addjob (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{, }\item[{pid\+\_\+t}]{pid}{, }\item[{int}]{state}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{cmdline}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a0b2b78588087ca2bfb21a4a5b85f9c0b}\index{tinyshell\_final.c@{tinyshell\_final.c}!clearjob@{clearjob}}
+\index{clearjob@{clearjob}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{clearjob()}{clearjob()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a0b2b78588087ca2bfb21a4a5b85f9c0b} 
+void clearjob (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{job}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a98fe9d2f3c3e45a6f2cdcbd3d95b1f48}\index{tinyshell\_final.c@{tinyshell\_final.c}!deletejob@{deletejob}}
+\index{deletejob@{deletejob}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{deletejob()}{deletejob()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a98fe9d2f3c3e45a6f2cdcbd3d95b1f48} 
+int deletejob (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{, }\item[{pid\+\_\+t}]{pid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a2f4a39ef4143299db259c28f45782517}\index{tinyshell\_final.c@{tinyshell\_final.c}!do\_bgfg@{do\_bgfg}}
+\index{do\_bgfg@{do\_bgfg}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{do\_bgfg()}{do\_bgfg()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a2f4a39ef4143299db259c28f45782517} 
+void do\+\_\+bgfg (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a96b59c995e4cc9767e3a0026fb8fee30}\index{tinyshell\_final.c@{tinyshell\_final.c}!eval@{eval}}
+\index{eval@{eval}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a96b59c995e4cc9767e3a0026fb8fee30} 
+void eval (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{cmdline}{}\end{DoxyParamCaption})}
+
+
+
+Main evaluation entry point. Checks for \& and calls pipeline logic. 
+
+\Hypertarget{tinyshell__final_8c_a1317e2d7d88a2d396b5afa238923e7fc}\index{tinyshell\_final.c@{tinyshell\_final.c}!getjobjid@{getjobjid}}
+\index{getjobjid@{getjobjid}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{getjobjid()}{getjobjid()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a1317e2d7d88a2d396b5afa238923e7fc} 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*} getjobjid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{, }\item[{int}]{jid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_ad0ab3d39d6885c63357e44dae8b3efa1}\index{tinyshell\_final.c@{tinyshell\_final.c}!getjobpid@{getjobpid}}
+\index{getjobpid@{getjobpid}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{getjobpid()}{getjobpid()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ad0ab3d39d6885c63357e44dae8b3efa1} 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*} getjobpid (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{, }\item[{pid\+\_\+t}]{pid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_ac8f4665dc58ca5a6f9fea710e85eedbd}\index{tinyshell\_final.c@{tinyshell\_final.c}!handle\_redirections@{handle\_redirections}}
+\index{handle\_redirections@{handle\_redirections}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{handle\_redirections()}{handle\_redirections()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ac8f4665dc58ca5a6f9fea710e85eedbd} 
+int handle\+\_\+redirections (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{in\+\_\+fd}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{out\+\_\+fd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a682ea5e9b0f140547d61862ba71a5552}\index{tinyshell\_final.c@{tinyshell\_final.c}!initjobs@{initjobs}}
+\index{initjobs@{initjobs}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{initjobs()}{initjobs()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a682ea5e9b0f140547d61862ba71a5552} 
+void initjobs (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_acdff86c02cd63e119e3988f9b15f5eab}\index{tinyshell\_final.c@{tinyshell\_final.c}!listjobs@{listjobs}}
+\index{listjobs@{listjobs}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{listjobs()}{listjobs()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_acdff86c02cd63e119e3988f9b15f5eab} 
+void listjobs (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{jobs}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{tinyshell\_final.c@{tinyshell\_final.c}!main@{main}}
+\index{main@{main}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a7cadbc310ebcae23f2a6e12ad9476a40}\index{tinyshell\_final.c@{tinyshell\_final.c}!parse\_and\_execute\_stage@{parse\_and\_execute\_stage}}
+\index{parse\_and\_execute\_stage@{parse\_and\_execute\_stage}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{parse\_and\_execute\_stage()}{parse\_and\_execute\_stage()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a7cadbc310ebcae23f2a6e12ad9476a40} 
+void parse\+\_\+and\+\_\+execute\+\_\+stage (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{cmd\+\_\+segment}{, }\item[{int}]{in\+\_\+fd}{, }\item[{int}]{out\+\_\+fd}{, }\item[{pid\+\_\+t}]{pgid}{}\end{DoxyParamCaption})}
+
+
+
+Parses individual command and executes. 
+
+\Hypertarget{tinyshell__final_8c_afc2a455d18f02dc9e6fadef8178dfe3f}\index{tinyshell\_final.c@{tinyshell\_final.c}!pid2jid@{pid2jid}}
+\index{pid2jid@{pid2jid}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{pid2jid()}{pid2jid()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_afc2a455d18f02dc9e6fadef8178dfe3f} 
+int pid2jid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a69a467ae9f5853ac1dcdf550cc0ae97e}\index{tinyshell\_final.c@{tinyshell\_final.c}!process\_pipeline@{process\_pipeline}}
+\index{process\_pipeline@{process\_pipeline}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{process\_pipeline()}{process\_pipeline()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a69a467ae9f5853ac1dcdf550cc0ae97e} 
+void process\+\_\+pipeline (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{cmdline}{, }\item[{int}]{bg}{}\end{DoxyParamCaption})}
+
+
+
+Parses pipes and executes the chain. 
+
+\Hypertarget{tinyshell__final_8c_a7ec144a9a628442e52b80210bc8364ad}\index{tinyshell\_final.c@{tinyshell\_final.c}!sigchld\_handler@{sigchld\_handler}}
+\index{sigchld\_handler@{sigchld\_handler}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{sigchld\_handler()}{sigchld\_handler()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a7ec144a9a628442e52b80210bc8364ad} 
+void sigchld\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{sig}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a258e3b580e688a0cf46e4258525aeaf1}\index{tinyshell\_final.c@{tinyshell\_final.c}!sigint\_handler@{sigint\_handler}}
+\index{sigint\_handler@{sigint\_handler}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{sigint\_handler()}{sigint\_handler()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a258e3b580e688a0cf46e4258525aeaf1} 
+void sigint\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{sig}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a809b7c47b9e4abc05325a4b3d33f59a5}\index{tinyshell\_final.c@{tinyshell\_final.c}!sigtstp\_handler@{sigtstp\_handler}}
+\index{sigtstp\_handler@{sigtstp\_handler}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{sigtstp\_handler()}{sigtstp\_handler()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a809b7c47b9e4abc05325a4b3d33f59a5} 
+void sigtstp\+\_\+handler (\begin{DoxyParamCaption}\item[{int}]{sig}{}\end{DoxyParamCaption})}
+
+\Hypertarget{tinyshell__final_8c_a6d41e68c6d9855500b96b1f467d8fcd5}\index{tinyshell\_final.c@{tinyshell\_final.c}!waitfg@{waitfg}}
+\index{waitfg@{waitfg}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{waitfg()}{waitfg()}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a6d41e68c6d9855500b96b1f467d8fcd5} 
+void waitfg (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{tinyshell__final_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7}\index{tinyshell\_final.c@{tinyshell\_final.c}!jobs@{jobs}}
+\index{jobs@{jobs}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{jobs}{jobs}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a737864e58888ea41738a3208875b7cf7} 
+struct \mbox{\hyperlink{structjob__t}{job\+\_\+t}} jobs\mbox{[}\mbox{\hyperlink{tinyshell__final_8c_ab392eccba9f043ae0be432eceaf65be4}{MAX\+\_\+\+JOBS}}\mbox{]}}
+
+\Hypertarget{tinyshell__final_8c_ad1163b03641d66a0844e796b9356827a}\index{tinyshell\_final.c@{tinyshell\_final.c}!next\_jid@{next\_jid}}
+\index{next\_jid@{next\_jid}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{next\_jid}{next\_jid}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_ad1163b03641d66a0844e796b9356827a} 
+int next\+\_\+jid = 1}
+
+\Hypertarget{tinyshell__final_8c_afdad9ad3f210967275dfd51e61237173}\index{tinyshell\_final.c@{tinyshell\_final.c}!shell\_pgid@{shell\_pgid}}
+\index{shell\_pgid@{shell\_pgid}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{shell\_pgid}{shell\_pgid}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_afdad9ad3f210967275dfd51e61237173} 
+pid\+\_\+t shell\+\_\+pgid}
+
+\Hypertarget{tinyshell__final_8c_a4c41dc73f1e5154a8f75e1eba36fe46e}\index{tinyshell\_final.c@{tinyshell\_final.c}!shell\_terminal@{shell\_terminal}}
+\index{shell\_terminal@{shell\_terminal}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{shell\_terminal}{shell\_terminal}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a4c41dc73f1e5154a8f75e1eba36fe46e} 
+int shell\+\_\+terminal}
+
+\Hypertarget{tinyshell__final_8c_a2dc441c45b3015ec6ab79d5abb838dfc}\index{tinyshell\_final.c@{tinyshell\_final.c}!shell\_tmodes@{shell\_tmodes}}
+\index{shell\_tmodes@{shell\_tmodes}!tinyshell\_final.c@{tinyshell\_final.c}}
+\doxysubsubsection{\texorpdfstring{shell\_tmodes}{shell\_tmodes}}
+{\footnotesize\ttfamily \label{tinyshell__final_8c_a2dc441c45b3015ec6ab79d5abb838dfc} 
+struct termios shell\+\_\+tmodes}
+

@@ -1,0 +1,4 @@
+total 36
+-rwxrwxrwx 1 vasilis vasilis     0 Dec 22  2025 out.txt
+-rwxrwxrwx 1 vasilis vasilis 22384 Dec 22 12:03 tinyshell_final
+-rwxrwxrwx 1 vasilis vasilis 11172 Dec 22 12:02 tinyshell_final.c
