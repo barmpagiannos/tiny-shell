@@ -1,55 +1,168 @@
-# TinyShell
+Έχω αυτό το README.md
 
-A Unix-style shell written in **C**, implementing command execution with  
-**PATH search**, **I/O redirection**, **pipelines**, and **job control**.
+TinyShell Project: A Minimal Unix Shell Implementation
 
----
+A project I completed as part of the Operating Systems course during the 9th semester of my studies.
 
-## Overview
+Author: Vasilis Barmpagiannos
 
-**TinyShell** is an educational Unix shell developed as part of the  
-**Operating Systems** course (9th semester).
+Project Overview: Phases 1, 2, & 3
 
-The project follows a **3-phase incremental design**, evolving from a basic
-command executor into a fully–featured shell with job control and signal
-handling.
+Introduction
 
-**Author:** Vasilis Barmpagiannos  
-**Language:** C  
-**Platform:** Linux / WSL  
+TinyShell is a custom, educational Unix shell implementation developed in C. It is designed to mimic the core functionalities of a standard command-line interpreter (like Bash or Zsh) while remaining lightweight and comprehensible.
 
----
+The development of TinyShell followed a structured, 3-phase approach, evolving from a simple command executor to a sophisticated shell capable of complex I/O manipulation and process management.
 
-## Project Phases
+Build & Installation
 
-### Phase 1 — Command Execution
-- `fork` / `execvp` / `wait`
-- PATH search
-- Exit status reporting
-- Built-in command: `exit`
+To compile the final, fully-featured version of TinyShell (which includes all features from Phases 1, 2, and 3), follow these steps:
 
-### Phase 2 — I/O Redirection & Pipelines
-- Input redirection: `<`
-- Output redirection: `>`
-- Append redirection: `>>`
-- Pipelines: `|`
-- Quote handling
+Prerequisites
 
-### Phase 3 — Job Control & Signals
-- Background execution: `&`
-- Job management: `jobs`, `fg`, `bg`
-- Process groups
-- Signal handling (`SIGINT`, `SIGTSTP`, `SIGCHLD`)
-- Built-in command: `cd`
+A Linux environment (WSL, Ubuntu, Debian, etc.)
 
----
+GCC Compiler (gcc)
 
-## Build & Installation
+Compilation Command
 
-### Prerequisites
-- Linux environment (Ubuntu, Debian, WSL, etc.)
-- GCC compiler
+Navigate to your source directory and run:
 
-### Compilation
-```bash
 gcc -o tinyshell_final tinyshell_final.c -Wall -Wextra
+
+
+Execution
+
+Start the shell:
+
+./tinyshell_final
+
+
+Features Breakdown
+
+Phase 1: The Core Engine (Basics)
+
+The foundation of the shell.
+
+Prompt Display: Shows tsh> waiting for user input.
+
+Command Parsing: Reads raw input and splits it into arguments (tokenization).
+
+Execution: Uses fork() to create child processes and execvp() to run programs found in the system PATH.
+
+Error Handling: Reports "Command not found" and other execution errors.
+
+Built-in: exit to terminate the shell cleanly.
+
+Phase 2: Input/Output Mastery (Pipes & Redirection)
+
+Enhancing the shell with stream manipulation capabilities.
+
+Output Redirection (>): Saves command output to a file (truncating).
+
+Example: ls -l > file_list.txt
+
+Append Redirection (>>): Appends command output to a file.
+
+Example: echo "Log entry" >> log.txt
+
+Input Redirection (<): Feeds file content into a command.
+
+Example: wc -l < file_list.txt
+
+Pipes (|): Connects the output of one command to the input of another using kernel pipes.
+
+Example: ls -l | grep ".c" | sort
+
+Phase 3: Advanced Control (Job Control & Signals)
+
+Transforming TinyShell into a professional-grade process manager.
+
+Background Execution (&): Allows commands to run asynchronously without blocking the prompt.
+
+Example: sleep 20 &
+
+Process Groups: Isolates jobs so signals (like Ctrl-C) don't kill the shell itself.
+
+Signal Handling:
+
+Ctrl-C (SIGINT): Interrupts the foreground job only.
+
+Ctrl-Z (SIGTSTP): Suspends (stops) the foreground job.
+
+SIGCHLD: Automatically reaps terminated or stopped children (preventing zombies).
+
+Job Management Commands:
+
+jobs: Lists all active background and stopped jobs.
+
+fg %N: Brings job N to the foreground.
+
+bg %N: Resumes stopped job N in the background.
+
+Built-in: cd for changing directories.
+
+Usage Examples
+
+Here are some scenarios to test the full capabilities of TinyShell:
+
+1. Basic Commands
+
+tsh> ls -la
+tsh> echo "Hello World"
+
+
+2. Complex Pipelines & Redirection
+
+Find all C files, count them, and save the result:
+
+tsh> ls | grep ".c" | wc -l > c_count.txt
+tsh> cat c_count.txt
+
+
+3. Background Processing
+
+Start a long task in the background and verify it's running:
+
+tsh> sleep 50 &
+[1] (12345) sleep 50 &
+tsh> jobs
+[1] (12345) Running sleep 50 &
+
+
+4. Job Control (Stop & Resume)
+
+Start a task, stop it with Ctrl-Z, send it to background, then bring it back:
+
+tsh> sleep 100
+^Z
+Job [1] (12346) stopped by signal 20
+tsh> bg %1
+[1] (12346) sleep 100 &
+tsh> jobs
+[1] (12346) Running sleep 100 &
+tsh> fg %1
+... (process runs in foreground) ...
+
+
+File Structure
+
+tinyshell_final.c: The complete source code merging logic from all phases.
+
+tinyshell_final: The compiled executable binary.
+
+docs/: Directory containing HTML/PDF documentation generated by Doxygen.
+
+README.md: This file.
+
+Technical Implementation Details
+
+System Calls Used: fork, execvp, waitpid, pipe, dup2, open, close, kill, signal, setpgid, tcsetpgrp.
+
+Signal Safety: SIGCHLD is blocked during critical sections (like adding jobs to the list) to prevent race conditions.
+
+Memory Management: The shell uses static arrays for job lists (MAX_JOBS=16) for simplicity and reliability.
+
+© 2025 Vasilis Barmpagiannos. Academic Project for Operating Systems Course.
+
+Θέλω να το κάνεις πιο όμορφο σαν αυτό στη φωτογραφία.
